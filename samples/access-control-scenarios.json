@@ -1,0 +1,98 @@
+[
+  {
+    "scenario": "Owner reads private document",
+    "category": "authorized baseline",
+    "session_id": "sess-alice",
+    "endpoint": "/documents",
+    "action": "read",
+    "resource_id": "doc-alice",
+    "expected_secure": true
+  },
+  {
+    "scenario": "Tenant member reads shared document",
+    "category": "authorized baseline",
+    "session_id": "sess-alice",
+    "endpoint": "/documents",
+    "action": "read",
+    "resource_id": "doc-shared",
+    "expected_secure": true
+  },
+  {
+    "scenario": "Administrator exports tenant data",
+    "category": "authorized baseline",
+    "session_id": "sess-admin",
+    "endpoint": "/admin/export",
+    "action": "export",
+    "expected_secure": true
+  },
+  {
+    "scenario": "Analyst requests another user's private document",
+    "category": "horizontal IDOR",
+    "session_id": "sess-alice",
+    "endpoint": "/documents",
+    "action": "read",
+    "resource_id": "doc-bob",
+    "expected_secure": false
+  },
+  {
+    "scenario": "Viewer modifies another user's document",
+    "category": "horizontal privilege escalation",
+    "session_id": "sess-bob",
+    "endpoint": "/documents",
+    "action": "update",
+    "resource_id": "doc-alice",
+    "expected_secure": false
+  },
+  {
+    "scenario": "Analyst claims administrator role",
+    "category": "vertical privilege escalation",
+    "session_id": "sess-alice",
+    "endpoint": "/admin/export",
+    "action": "export",
+    "claimed_role": "admin",
+    "expected_secure": false
+  },
+  {
+    "scenario": "Viewer directly browses user administration",
+    "category": "forced browsing",
+    "session_id": "sess-bob",
+    "endpoint": "/admin/users",
+    "action": "list_users",
+    "claimed_role": "admin",
+    "expected_secure": false
+  },
+  {
+    "scenario": "Analyst reads another tenant's document",
+    "category": "cross-tenant access",
+    "session_id": "sess-alice",
+    "endpoint": "/documents",
+    "action": "read",
+    "resource_id": "doc-carol",
+    "expected_secure": false
+  },
+  {
+    "scenario": "Disabled administrator uses an old session",
+    "category": "session lifecycle",
+    "session_id": "sess-disabled",
+    "endpoint": "/admin/export",
+    "action": "export",
+    "expected_secure": false
+  },
+  {
+    "scenario": "Anonymous user requests a document",
+    "category": "missing authentication",
+    "session_id": null,
+    "endpoint": "/documents",
+    "action": "read",
+    "resource_id": "doc-alice",
+    "expected_secure": false
+  },
+  {
+    "scenario": "Authenticated user requests an unknown endpoint",
+    "category": "default deny",
+    "session_id": "sess-alice",
+    "endpoint": "/internal/debug",
+    "action": "read",
+    "expected_secure": false
+  }
+]
