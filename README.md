@@ -37,3 +37,21 @@ The vulnerable policy exposes six unauthorized paths. The secure policy produces
 Use these concepts only in systems you own or are explicitly authorized to test. The project contains fictional identities and local policy models—no credentials, live targets, exploit automation, or destructive actions.
 
 See [LAB_REPORT.md](LAB_REPORT.md), [THREAT_MODEL.md](THREAT_MODEL.md), and the generated [experiment results](reports/access-control-results.md).
+
+## Repository map
+
+```text
+web-access-control-security-lab/
+|-- .github/
+|-- .gitignore
+|-- LAB_REPORT.md
+|-- README.md
+|-- SECURITY.md
+|-- THREAT_MODEL.md
+|-- access_control_lab.py
+|-- reports/
+|-- samples/
+`-- tests/
+```
+
+Follow the setup and safety boundaries above before running or deploying any code.
